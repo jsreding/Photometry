@@ -177,7 +177,7 @@ if (check_edit_headers == 'Y') or (check_edit_headers == 'y'):
 
     ## Use get_header_val to get values for each
     ## header keyword that needs to be added/edited
-    texp        = get_header_val('EXPTIME', pass_value=texp_guess)
+    texp        = float(get_header_val('EXPTIME', pass_value=texp_guess))
     filt_name   = get_header_val('FILTER')
     object_name = get_header_val('OBJECT')
     instr_name  = get_header_val('INSTRUME')
