@@ -1,0 +1,31 @@
+
+
+freq, per, fq, ft = fft(time, norm)
+
+fig = plt.figure()
+ax1 = fig.add_subplot(311)
+ax1.minorticks_on()
+ax1.set_ylabel('Rel. Flux (%)', fontsize=14)
+ax1.set_xlabel('Time (s)', fontsize=14)
+ax1.scatter(time, norm, s=2)
+ax2 = fig.add_subplot(312)
+ax2.minorticks_on()
+ax2.text(0.65, 0.9,r'Highest Peak: $%s days (%s ppt), %s \mu Hz$'%(np.round(per, 3), np.round(ft[35:].max()*20, 3), np.round(fq*1e6, 3)), horizontalalignment='center', verticalalignment='center', transform=ax2.transAxes, fontsize=14)
+ax2.set_ylabel('Amplitude (ppt)', fontsize=14)
+ax2.set_xlabel(r'Possible frequencies ($\mu Hz$)', fontsize=14)
+ax2.set_xlim([0, 310])
+ax2.scatter(fq*1e6, ft.max()*20, marker="*", s=100, color='Green')
+ax2.plot(freq*1e6/(2*np.pi), ft*20)
+ax2.axvspan(0, 1.25, alpha=0.5, color='red')
+ax3 = fig.add_subplot(313)
+ax3.minorticks_on()
+ax3.set_ylabel('Amplitude (ppt)', fontsize=14)
+ax3.set_xlabel(r'Possible frequencies ($\mu Hz$)', fontsize=14)
+if fq*1e6 < 25:
+    ax3.set_xlim([0, 50])
+else:
+    ax3.set_xlim([fq*1e6-25, fq*1e6+25])
+ax3.scatter(fq*1e6, ft.max()*20, marker="*", s=100, color='Green')
+ax3.plot(freq*1e6/(2*np.pi), ft*20)
+ax3.axvspan(0, 1.25, alpha=0.5, color='red')
+plt.show()
