@@ -43,7 +43,7 @@ from pandas import read_csv,DataFrame
 #############################################################
 ##
 ##  Progress Bar Code. I got this code from Stack Overflow,
-##  "Python to print out status bar and percentage"
+##  "Python to print(out status bar and percentage"
 ##
 #############################################################
 
@@ -52,8 +52,7 @@ from pandas import read_csv,DataFrame
 def progress_bar(count,total,action):
     sys.stdout.write('\r')
     sys.stdout.write(action)
-    sys.stdout.write("[%-20s] %d%%" % ('='*(count*20/total),\
-                                       count*100/total))
+    sys.stdout.write("[%-20s] %d%%" % ('='*(count*20/total), count*100/total))
     sys.stdout.flush()
     return
 
@@ -72,11 +71,11 @@ print('')
 file_list = 'ilist'
 try:
     filenames  = np.loadtxt(path + file_list, dtype=str)
-    print filenames
+    print(filenames)
 except IOError:
     try:
         print('Could not find a working list using default name "%s"' %file_list)
-        file_list = raw_input("Please enter the working list name to search for: ")
+        file_list = input("Please enter the working list name to search for: ")
         filenames  = np.loadtxt(path + file_list, dtype=str)
     except IOError:
         print('Could not find a working list with name "%s"' %file_list)
@@ -110,7 +109,7 @@ print('## INSTRUME - The instrument used. e.g. ProEM      ##')
 print('## OBSERVER - The initials of the observer         ##')
 print('#####################################################')
 print('')
-check_edit_headers = raw_input('Would you like to proceed? (Y/[N]): ')
+check_edit_headers = input('Would you like to proceed? (Y/[N]): ')
 print('')
 
 if (check_edit_headers == 'Y') or (check_edit_headers == 'y'):
@@ -150,13 +149,13 @@ if (check_edit_headers == 'Y') or (check_edit_headers == 'y'):
                 ## keyword does not exist in the FITS header
                 header_value = hdu_temp[0].header[header_name]
 
-            ## If a current FILTER value exists, print it and
+            ## If a current FILTER value exists, print(it and
             ## ask the user if they want to change/keep it.
             print('%s = %s' %(header_name,header_value))
-            change_value = raw_input('Change %s value? (Y/[N]): ' %header_name)
+            change_value = input('Change %s value? (Y/[N]): ' %header_name)
 
             if (change_value == 'Y') or (change_value == 'y'):
-                new_value    = raw_input('Please provide new value for %s: ' %header_name)
+                new_value    = input('Please provide new value for %s: ' %header_name)
                 header_value = new_value
                 print('')
             else:
@@ -167,7 +166,7 @@ if (check_edit_headers == 'Y') or (check_edit_headers == 'y'):
         ## value that does not exist.  In this case, simply ask
         ## for a value that will be added into the header later.
         except KeyError:
-            header_value = raw_input('Please provide a value for %s: ' %header_name)
+            header_value = input('Please provide a value for %s: ' %header_name)
 
         ## Close the hdu
         hdu_temp.close()
@@ -191,7 +190,7 @@ if (check_edit_headers == 'Y') or (check_edit_headers == 'y'):
     print('OBJECT    = %s' %object_name)
     print('INSTRUME  = %s' %instr_name)
     print('OBSERVER  = %s' %observ_name)
-    continue_edit_headers = raw_input('Continue? (Y/[N]): ')
+    continue_edit_headers = input('Continue? (Y/[N]): ')
     print('')
 
     ## Defining a function to open, edit, and save a
@@ -215,10 +214,10 @@ if (check_edit_headers == 'Y') or (check_edit_headers == 'y'):
         ## and change their header values
         for i in range(num_files):
 
-            ## Print Progress Bar
+            ## print(Progress Bar
             count1  = i+1
             action1 = 'Editing header values..................'
-            progress_bar(count1, num_files, action1)
+            # progress_bar(count1, num_files, action1)
 
             ## Now to actually open, edit, and save the FITS files
             edit_FITS(path + filenames[i], texp, filt_name)
@@ -261,7 +260,7 @@ print('#####################################################')
 print('')
 print('Timestamps file:  %s' %csv_name[0])
 print('')
-check_add_times = raw_input('Would you like to proceed? (Y/[N]): ')
+check_add_times = input('Would you like to proceed? (Y/[N]): ')
 print('')
 
 if (check_add_times == 'Y') or (check_add_times == 'y'):
@@ -292,10 +291,10 @@ if (check_add_times == 'Y') or (check_add_times == 'y'):
     ## frames and save them into a list.
     exp_times = []
     for i in range(num_files):
-        ## Print progress bar
+        ## print(progress bar
         count2  = i+1
         action2 = 'Loading Exp. Times from FITS headers...'
-        progress_bar(count2, num_files, action2)
+        # progress_bar(count2, num_files, action2)
 
         texp1 = get_exptime(path + filenames[i])
         exp_times.append(texp1)
@@ -388,10 +387,10 @@ if (check_add_times == 'Y') or (check_add_times == 'y'):
     #Determine accurate timestamps and place in fits headers.
     for i in range(1,num_files):
 
-        ## Print progress bar
+        ## print(progress bar
         count3  = i+1
         action3 = 'Adding timestamps to FITS headers......'
-        progress_bar(count3, num_files, action3)
+        # progress_bar(count3, num_files, action3)
 
         ## Get the exposure time for the current frame
         exptime = exp_times[i]
@@ -411,7 +410,7 @@ if (check_add_times == 'Y') or (check_add_times == 'y'):
         else:
             print('')
             print('')
-            print "WARNING: timestamp anomaly on frame {}".format(index[i])
+            print("WARNING: timestamp anomaly on frame {}".format(index[i]))
             ## Sometimes a bad timestamp comes down the line and
             ## is corrected on the next exposure. Check to see if
             ## things get back on track and the exposure time was
