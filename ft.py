@@ -1,9 +1,6 @@
 def fft(time, flux, kepler=False):
-    import matplotlib.pyplot as plt
     import numpy as np
-    # from scipy.signal import lombscargle
     from astropy.stats import LombScargle
-    # import nufft
 
     fr, f = LombScargle(time, flux).autopower(minimum_frequency=1e-9, maximum_frequency=10000e-6, samples_per_peak=50, normalization='standard', method='fast')
     # f = np.ma.masked_where(fr <= 3160e-6, f)
